@@ -1,4 +1,10 @@
+import java.io.File
+import java.util
+
 import breeze.linalg.sum
+import com.google.gson.Gson
+import dt.config.RegularInvestSimulationConf
+import org.apache.commons.io.FileUtils
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.{DataFrame, Row, SQLContext}
 import org.apache.spark.sql.hive.HiveContext
@@ -9,21 +15,18 @@ object RegularInvestBenefitSimulation {
 
 
   def main(args: Array[String]): Unit = {
-    var list = new  ListBuffer[(Int, String)];
-    list.append((1, "123123"))
-    list.append((2, "123123"))
-    list.append((3, "123123"))
 
-    val benefitDf = null;
+    val str = "E:/Spark-practice/sparktest/invest-simulation-conf.json"
 
-    for(currentDate<- currentDate) {
-      var targetDate = list.head._2;
-      if(currentDate < targetDate) {
-        //要去计算对应的benefitDF了
-        
-      }
+    val jsonStr = FileUtils.readFileToString(new File(str))
+
+    val gson = new Gson();
+    val test = new RegularInvestSimulationConf()
+    val task : RegularInvestSimulationConf = gson.fromJson(jsonStr,test.getClass);
+    import scala.collection.JavaConversions._
+    for(test <- task.getTasks) {
+      println(test.getApply)
     }
-
   }
 
 
